@@ -45,7 +45,7 @@ CREATE TABLE data.plays_types (
 
 -- data
 -- NOTE: path is absolute, will need to be changed for different systems
-COPY data.plays FROM '/Users/scott/projects/neuralnfl/data/nflplays.csv' DELIMITER '	' CSV;
+COPY data.plays FROM '/Users/scott/projects/neuralnfl/data/nflplays.csv' DELIMITER '	';
 INSERT INTO data.types (type) VALUES
   ('Run'),
   ('Pass'),
@@ -117,3 +117,18 @@ INSERT INTO data.plays_types -- Kneel
 INSERT INTO data.plays_types -- Spike
   SELECT id as play_id, 8 as type_id FROM data.plays
   WHERE play_type LIKE '%SPIKE%';
+
+-- create test data
+COPY (
+SELECT
+  minute,
+  down,
+  yards_to_first,
+  yards_to_goal,
+  (off_score - p.def_score) AS "score_diff",
+  t.id                      AS "type_id",
+  t.type                    AS "type_name"
+FROM data.plays p
+  JOIN data.plays_types pt ON (p.id = pt.play_id)
+  JOIN data.types t ON (pt.type_id = t.id)
+) TO '/Users/scott/projects/neuralnfl/data/testdata.csv' DELIMITER ',';
