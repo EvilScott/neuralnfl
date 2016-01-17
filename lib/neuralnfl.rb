@@ -1,4 +1,10 @@
 # Neural NFL
 # Robert Scott Reis 2016
 
-# TODO
+require_relative 'neural_nfl/network'
+require_relative 'neural_nfl/layer'
+require_relative 'neural_nfl/neuron'
+
+module NeuralNFL; end
+
+net = NeuralNFL::Network.new(5, [6, 7])
