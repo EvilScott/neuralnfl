@@ -30,7 +30,7 @@ CREATE TABLE data.plays (
   play_type VARCHAR(512)
 );
 
-DROP TABLE IF EXISTS data.play_types CASCADE;
+DROP TABLE IF EXISTS data.types CASCADE;
 CREATE TABLE data.types (
   id SERIAL PRIMARY KEY,
   type CHAR(32) NOT NULL
