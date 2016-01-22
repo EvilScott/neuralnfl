@@ -64,13 +64,13 @@ CREATE INDEX i_plays_description ON data.plays (description text_pattern_ops);
 
 -- handle some play types missing from the data
 UPDATE data.plays SET play_type = 'EXTRA_POINT'
-  WHERE description LIKE '%extra point%' AND play_type IS NULL;
+  WHERE description LIKE '%extra point%';
 UPDATE data.plays SET play_type = 'KNEEL'
-  WHERE description LIKE '%kneels%' or description LIKE '%takes a knee%' AND play_type IS NULL;
+  WHERE description LIKE '%kneels%' or description LIKE '%takes a knee%';
 UPDATE data.plays SET play_type = 'SPIKE'
-  WHERE description LIKE '%spiked the ball%' AND play_type IS NULL;
+  WHERE description LIKE '%spiked the ball%';
 UPDATE data.plays SET play_type = 'QB_SNEAK'
-  WHERE description LIKE '%scrambles%' AND play_type IS NULL;
+  WHERE description LIKE '%scrambles%';
 
 -- remove garbage data
 DELETE FROM data.plays
