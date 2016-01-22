@@ -1,25 +1,21 @@
 module NeuralNFL
   class Neuron
-    attr_accessor :weights, :bias
+    attr_accessor :weights, :delta, :out
 
-    def initialize(weights, bias)
-      @weights, @bias = weights, bias
+    def initialize(weights)
+      @weights = weights
     end
 
-    def eval(inputs)
-      sigmoid(weighted_sum(inputs))
+    def eval!(inputs)
+      @out = sigmoid(weighted_sum(inputs))
     end
 
     def weighted_sum(inputs)
-      weights.zip(inputs).inject(0) { |sum, x| sum + x.inject(:*) } + bias
+      weights.zip(inputs).inject(0) { |sum, x| sum + x.inject(:*) }
     end
 
     def sigmoid(x)
       1 / (1 + Math.exp(-1 * x))
-    end
-
-    def sigmoid_prime(x)
-      sigmoid(x) * (1 - sigmoid(x))
     end
   end
 end
