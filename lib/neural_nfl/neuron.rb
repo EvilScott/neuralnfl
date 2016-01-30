@@ -1,12 +1,13 @@
 module NeuralNFL
   class Neuron
-    attr_accessor :weights, :delta, :out
+    attr_accessor :weights, :delta, :inputs, :out
 
     def initialize(weights)
       @weights = weights
     end
 
     def eval!(inputs)
+      @inputs = inputs
       @out = sigmoid(weighted_sum(inputs))
     end
 
