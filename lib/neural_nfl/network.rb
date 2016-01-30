@@ -12,7 +12,7 @@ module NeuralNFL
       [@hidden_layer, @output_layer].reduce(inputs) { |ins, layer| layer.eval!(ins) }
     end
 
-    def train(inputs, expected)
+    def train!(inputs, expected)
       # TODO refactor into smaller methods for testing
 
       # feed forward
