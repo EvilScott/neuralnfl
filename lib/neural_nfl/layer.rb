@@ -10,7 +10,7 @@ module NeuralNFL
       Neuron.new(Array.new(input_count, Random.new.rand(2.0) - 1))
     end
 
-    def eval!(inputs)
+    def eval(inputs)
       @nodes.map { |node| node.eval!(inputs) }
     end
   end

@@ -8,17 +8,18 @@ module NeuralNFL
       @learning_rate = learning_rate
     end
 
-    def eval!(inputs)
-      [@hidden_layer, @output_layer].reduce(inputs) { |ins, layer| layer.eval!(ins) }
+    def eval(inputs)
+      [@hidden_layer, @output_layer].reduce(inputs) { |ins, layer| layer.eval(ins) }
     end
 
     def train!(inputs, expected)
-      # TODO refactor into smaller methods for testing
+      eval(inputs)
+      backprop!(expected)
+      update_weights!
+      # TODO return some kind of error measurement?
+    end
 
-      # feed forward
-      eval!(inputs)
-
-      # backprop
+    def backprop!(expected)
       @output_layer.nodes.each_with_index do |node, i|
         error = expected[i] - node.out
         node.delta = node.out * (1 - node.out) * error
@@ -27,8 +28,9 @@ module NeuralNFL
         error = @output_layer.nodes.map { |n| n.delta * n.weights[i] }.reduce(:+)
         node.delta = node.out * (1 - node.out) * error
       end
+    end
 
-      # update weights
+    def update_weights!
       @output_layer.nodes.each do |node|
         node.weights = node.weights.each_with_index.map do |weight, i|
           weight - (@learning_rate * node.delta * node.inputs[i])
@@ -39,8 +41,6 @@ module NeuralNFL
           weight - (@learning_rate * node.delta * inputs[i])
         end
       end
-
-      # TODO return some kind of error measurement?
     end
 
     def serialize
