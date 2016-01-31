@@ -14,31 +14,34 @@ module NeuralNFL
 
     def train!(inputs, expected)
       eval(inputs)
-      backprop!(expected)
-      update_weights!
+      deltas = backprop(expected)
+      update_weights!(deltas)
       # TODO return some kind of error measurement?
     end
 
-    def backprop!(expected)
+    def backprop(expected)
+      output_deltas, hidden_deltas = [], []
       @output_layer.nodes.each_with_index do |node, i|
         error = expected[i] - node.out
-        node.delta = node.out * (1 - node.out) * error
+        output_deltas << node.out * (1 - node.out) * error
       end
       @hidden_layer.nodes.each_with_index do |node, i|
         error = @output_layer.nodes.map { |n| n.delta * n.weights[i] }.reduce(:+)
-        node.delta = node.out * (1 - node.out) * error
+        hidden_deltas << node.out * (1 - node.out) * error
       end
+      [output_deltas, hidden_deltas]
     end
 
-    def update_weights!
+    def update_weights!(deltas)
+      output_deltas, hidden_deltas = deltas[0], deltas[1]
       @output_layer.nodes.each do |node|
         node.weights = node.weights.each_with_index.map do |weight, i|
-          weight - (@learning_rate * node.delta * node.inputs[i])
+          weight - (@learning_rate * output_deltas[i] * node.inputs[i])
         end
       end
       @hidden_layer.nodes.each do |node|
         node.weights = node.weights.each_with_index.map do |weight, i|
-          weight - (@learning_rate * node.delta * inputs[i])
+          weight - (@learning_rate * hidden_deltas[i] * inputs[i])
         end
       end
     end
