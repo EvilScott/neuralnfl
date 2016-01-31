@@ -14,41 +14,11 @@ module NeuralNFL
 
     def train!(inputs, expected)
       outputs = eval(inputs)
-      deltas = backprop(expected)
-      update_weights!(deltas)
+      output_deltas = @output_layer.output_deltas(expected)
+      hidden_deltas = @hidden_layer.hidden_deltas(@output_layer.nodes)
+      @output_layer.update_weights!(output_deltas, @learning_rate)
+      @hidden_layer.update_weights!(hidden_deltas, @learning_rate)
       expected.zip(outputs).map { |x, y| (x - y) ** 2 }.reduce(:+) / expected.count.to_f
-    end
-
-    def backprop(expected)
-      output_deltas, hidden_deltas = [], []
-
-      @output_layer.nodes.each_with_index do |node, i|
-        error = expected[i] - node.out
-        output_deltas << node.out * (1 - node.out) * error
-      end
-
-      @hidden_layer.nodes.each_with_index do |node, i|
-        error = @output_layer.nodes.map { |n| n.delta * n.weights[i] }.reduce(:+)
-        hidden_deltas << node.out * (1 - node.out) * error
-      end
-
-      [output_deltas, hidden_deltas]
-    end
-
-    def update_weights!(deltas)
-      output_deltas, hidden_deltas = deltas[0], deltas[1]
-
-      @output_layer.nodes.each do |node|
-        node.weights = node.weights.each_with_index.map do |weight, i|
-          weight - (@learning_rate * output_deltas[i] * node.inputs[i])
-        end
-      end
-
-      @hidden_layer.nodes.each do |node|
-        node.weights = node.weights.each_with_index.map do |weight, i|
-          weight - (@learning_rate * hidden_deltas[i] * node.inputs[i])
-        end
-      end
     end
 
     def serialize
