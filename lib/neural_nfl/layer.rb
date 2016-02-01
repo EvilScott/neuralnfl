@@ -20,9 +20,9 @@ module NeuralNFL
       end
     end
 
-    def hidden_deltas(output_nodes)
+    def hidden_deltas(output_nodes, output_deltas)
       nodes.each_with_index.map do |node, i|
-        error = output_nodes.map { |n| n.delta * n.weights[i] }.reduce(:+)
+        error = output_nodes.map { |n| output_deltas[i] * n.weights[i] }.reduce(:+)
         node.out * (1 - node.out) * error
       end
     end

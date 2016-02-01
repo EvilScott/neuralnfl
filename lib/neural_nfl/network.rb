@@ -15,7 +15,7 @@ module NeuralNFL
     def train!(inputs, expected)
       outputs = eval(inputs)
       output_deltas = @output_layer.output_deltas(expected)
-      hidden_deltas = @hidden_layer.hidden_deltas(@output_layer.nodes)
+      hidden_deltas = @hidden_layer.hidden_deltas(@output_layer.nodes, output_deltas)
       @output_layer.update_weights!(output_deltas, @learning_rate)
       @hidden_layer.update_weights!(hidden_deltas, @learning_rate)
       expected.zip(outputs).map { |x, y| (x - y) ** 2 }.reduce(:+) / expected.count.to_f
