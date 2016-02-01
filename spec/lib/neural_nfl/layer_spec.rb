@@ -20,11 +20,11 @@ module NeuralNFL
       end
     end
 
-    describe '#eval' do
+    describe '#evaluate' do
       it 'evaluates a layer of neurons and returns an array of outputs' do
-        expect(test_layer.nodes[0]).to receive(:eval).and_return(0.25)
-        expect(test_layer.nodes[1]).to receive(:eval).and_return(0.5)
-        expect(test_layer.eval([0.25, 0.5])).to eq [0.25, 0.5]
+        expect(test_layer.nodes[0]).to receive(:evaluate).and_return(0.25)
+        expect(test_layer.nodes[1]).to receive(:evaluate).and_return(0.5)
+        expect(test_layer.evaluate([0.25, 0.5])).to eq [0.25, 0.5]
       end
     end
 
@@ -40,11 +40,8 @@ module NeuralNFL
       it 'calculates deltas for a hidden layer' do
         expect(test_layer.nodes[0]).to receive(:out).exactly(2).times.and_return(0.5)
         expect(test_layer.nodes[1]).to receive(:out).exactly(2).times.and_return(0.5)
-        nodes = [
-          instance_double(Neuron, weights: [0.5, 0.5]),
-          instance_double(Neuron, weights: [0.5, 0.5])
-        ]
-        expect(test_layer.hidden_deltas(nodes, [0.5, 0.5])).to eq [0.125, 0.125]
+        output_nodes = [instance_double(Neuron, weights: [0.5, 0.5])]
+        expect(test_layer.hidden_deltas(output_nodes, [0.5])).to eq [0.0625, 0.0625]
       end
     end
 

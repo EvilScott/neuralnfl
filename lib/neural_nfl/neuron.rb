@@ -6,7 +6,7 @@ module NeuralNFL
       @weights = weights
     end
 
-    def eval(inputs)
+    def evaluate(inputs)
       @inputs = inputs
       @out = sigmoid(weighted_sum(inputs))
     end

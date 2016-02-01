@@ -66,3 +66,4 @@ Temporary Items
 # Custom rules
 data/nflplays.csv
 data/testdata.csv
+test.rb

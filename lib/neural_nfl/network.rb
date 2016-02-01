@@ -8,12 +8,12 @@ module NeuralNFL
       @learning_rate = learning_rate
     end
 
-    def eval(inputs)
-      [@hidden_layer, @output_layer].reduce(inputs) { |ins, layer| layer.eval(ins) }
+    def evaluate(inputs)
+      [@hidden_layer, @output_layer].reduce(inputs) { |ins, layer| layer.evaluate(ins) }
     end
 
     def train!(inputs, expected)
-      outputs = eval(inputs)
+      outputs = evaluate(inputs)
       output_deltas = @output_layer.output_deltas(expected)
       hidden_deltas = @hidden_layer.hidden_deltas(@output_layer.nodes, output_deltas)
       @output_layer.update_weights!(output_deltas, @learning_rate)
