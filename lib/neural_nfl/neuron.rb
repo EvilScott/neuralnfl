@@ -12,7 +12,7 @@ module NeuralNFL
     end
 
     def weighted_sum(inputs)
-      weights.zip(inputs).inject(0) { |sum, x| sum + x.inject(:*) }
+      weights.zip(inputs).map { |x, y| x * y }.reduce(:+)
     end
 
     def sigmoid(x)
