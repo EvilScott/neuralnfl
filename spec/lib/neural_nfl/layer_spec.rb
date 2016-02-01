@@ -48,10 +48,10 @@ module NeuralNFL
     describe '#update_weights!' do
       it 'updates weights based off deltas and a learning rate' do
         expect(test_layer.nodes[0]).to receive(:weights).twice.and_return([0.5, 0.5])
-        expect(test_layer.nodes[0]).to receive(:inputs).twice.and_return([0.5, 0.5])
+        expect(test_layer.nodes[0]).to receive(:inputs).once.and_return([0.5, 0.5])
         expect(test_layer.nodes[0]).to receive(:weights=).with([0.375, 0.375])
         expect(test_layer.nodes[1]).to receive(:weights).twice.and_return([0.5, 0.5])
-        expect(test_layer.nodes[1]).to receive(:inputs).twice.and_return([0.5, 0.5])
+        expect(test_layer.nodes[1]).to receive(:inputs).once.and_return([0.5, 0.5])
         expect(test_layer.nodes[1]).to receive(:weights=).with([0.375, 0.375])
         test_layer.update_weights!([0.5, 0.5], 0.5)
         expect(test_layer.nodes[0].weights).to eq [0.5, 0.5]

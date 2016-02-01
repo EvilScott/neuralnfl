@@ -22,15 +22,15 @@ module NeuralNFL
 
     def hidden_deltas(output_nodes, output_deltas)
       nodes.each_with_index.map do |node, i|
-        error = output_nodes.each_with_index.map { |n, j| output_deltas[j] * n.weights[i] }.reduce(:+)
+        error = output_nodes.zip(output_deltas).map { |n, delta| delta * n.weights[i] }.reduce(:+)
         node.out * (1 - node.out) * error
       end
     end
 
     def update_weights!(deltas, learning_rate)
-      nodes.each_with_index do |node, i|
-        node.weights = node.weights.each_with_index.map do |weight, j|
-          weight - (learning_rate * deltas[i] * node.inputs[j])
+      nodes.zip(deltas).each do |node, delta|
+        node.weights = node.weights.zip(node.inputs).map do |weight, input|
+          weight - (learning_rate * delta * input)
         end
       end
     end
