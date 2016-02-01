@@ -7,7 +7,7 @@ module NeuralNFL
     end
 
     def random_node(input_count)
-      Neuron.new(Array.new(input_count, Random.new.rand(2.0) - 1))
+      Neuron.new(Array.new(input_count, rand(-1.0..1.0)))
     end
 
     def evaluate(inputs)
