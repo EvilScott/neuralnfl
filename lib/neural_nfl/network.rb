@@ -22,11 +22,11 @@ module NeuralNFL
     end
 
     def serialize
-      # TODO serialize weights and layer counts
+      YAML.dump(self)
     end
 
     def self.from_serialized(serialized_network)
-      # TODO create a new network from serialized network
+      YAML.load(serialized_network)
     end
   end
 end

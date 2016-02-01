@@ -4,6 +4,7 @@
 require_relative 'neural_nfl/network'
 require_relative 'neural_nfl/layer'
 require_relative 'neural_nfl/neuron'
+require 'yaml'
 
 module NeuralNFL
   class << self

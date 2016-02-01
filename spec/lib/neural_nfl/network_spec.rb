@@ -25,11 +25,15 @@ module NeuralNFL
     end
 
     describe '#serialize' do
-      pending 'TODO implementation'
+      it 'serializes the network into YAML' do
+        expect(test_network.serialize).to be_a String
+      end
     end
 
     describe '.from_serialized' do
-      pending 'TODO implementation'
+      it 'returns a network from serialized YAML' do
+        expect(Network.from_serialized(test_network.serialize)).to be_an_instance_of Network
+      end
     end
   end
 end
