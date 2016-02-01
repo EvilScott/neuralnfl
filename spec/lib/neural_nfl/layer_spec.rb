@@ -37,15 +37,29 @@ module NeuralNFL
     end
 
     describe '#hidden_deltas' do
-      pending
-      # it 'calculates deltas for a hidden layer' do
-      # end
+      it 'calculates deltas for a hidden layer' do
+        expect(test_layer.nodes[0]).to receive(:out).exactly(2).times.and_return(0.5)
+        expect(test_layer.nodes[1]).to receive(:out).exactly(2).times.and_return(0.5)
+        nodes = [
+          instance_double(Neuron, weights: [0.5, 0.5]),
+          instance_double(Neuron, weights: [0.5, 0.5])
+        ]
+        expect(test_layer.hidden_deltas(nodes, [0.5, 0.5])).to eq [0.125, 0.125]
+      end
     end
 
     describe '#update_weights!' do
-      pending
-      # it 'updates weights based off deltas and a learning rate' do
-      # end
+      it 'updates weights based off deltas and a learning rate' do
+        expect(test_layer.nodes[0]).to receive(:weights).twice.and_return([0.5, 0.5])
+        expect(test_layer.nodes[0]).to receive(:inputs).twice.and_return([0.5, 0.5])
+        expect(test_layer.nodes[0]).to receive(:weights=).with([0.375, 0.375])
+        expect(test_layer.nodes[1]).to receive(:weights).twice.and_return([0.5, 0.5])
+        expect(test_layer.nodes[1]).to receive(:inputs).twice.and_return([0.5, 0.5])
+        expect(test_layer.nodes[1]).to receive(:weights=).with([0.375, 0.375])
+        test_layer.update_weights!([0.5, 0.5], 0.5)
+        expect(test_layer.nodes[0].weights).to eq [0.5, 0.5]
+        expect(test_layer.nodes[1].weights).to eq [0.5, 0.5]
+      end
     end
   end
 end
