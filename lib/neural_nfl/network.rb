@@ -13,7 +13,7 @@ module NeuralNFL
           Array.new(output_count, Vector.elements(Array.new(hidden_count, rand(-1.0..1.0))))
       ]
       @learning_rate = learning_rate
-      @activate = lambda { |x| 1 / (1 + Math.exp(-1 * x )) }
+      @activate = lambda { |x| 1 / (1 + Math.exp(-1 * x)) }
       @activate_prime = lambda { |x| x * (1 - x) }
     end
 

@@ -13,6 +13,7 @@ module NeuralNFL
     end
 
     describe '#get_output_deltas' do
+      #TODO add more assertions in multiple it blocks for documentation/clarity
       it 'provides deltas for the output layer' do
         expected = [1.0, 0.0]
         output = [0.5, 0.25]
