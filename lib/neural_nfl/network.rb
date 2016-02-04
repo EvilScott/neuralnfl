@@ -17,16 +17,14 @@ module NeuralNFL
       @activate_prime = lambda { |x| x * (1 - x) }
     end
 
-    #TODO dry this
     def evaluate(inputs)
       @layers.reduce(Vector.elements(inputs)) do |input, layer|
         Vector.elements(layer.map { |node| @activate.call(node.inner_product(input)) })
       end
     end
 
-    def train(inputs, expected)
+    def train!(inputs, expected)
       inputs = Vector.elements(inputs)
-      #TODO dry this
       hidden_outs = Vector.elements(@layers.first.map { |node| @activate.call(node.inner_product(inputs)) })
       output_outs = Vector.elements(@layers.last.map { |node| @activate.call(node.inner_product(hidden_outs)) })
       output_deltas = get_output_deltas(expected, output_outs)
