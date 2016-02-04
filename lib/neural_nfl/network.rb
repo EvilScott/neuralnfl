@@ -37,14 +37,14 @@ module NeuralNFL
 
     def get_output_deltas(expected, output)
       expected.zip(output.to_a).map do |expect, out|
-        (expect - out) * @activate_prime.call(out)
+        (out - expect) * @activate_prime.call(out)
       end
     end
 
     def get_hidden_deltas(hidden_outs, output_nodes, output_deltas)
-      @layers.first.each_index.map do |node_index|
-        error = output_nodes.zip(output_deltas).map { |weights, delta| weights[node_index] * delta }.reduce(:+)
-        error * @activate_prime.call(hidden_outs[node_index])
+      hidden_outs.each_with_index.map do |out, index|
+        error = output_nodes.zip(output_deltas).map { |weights, delta| weights[index] * delta }.reduce(:+)
+        error * @activate_prime.call(out)
       end
     end
 
@@ -52,7 +52,7 @@ module NeuralNFL
     def update_output_weights!(inputs, deltas)
       @layers[1] = @layers.last.each_with_index.map do |weights, node_index|
         weights = weights.each_with_index.map do |weight, weight_index|
-          weight + (@learning_rate * inputs[weight_index] * deltas[node_index])
+          weight - (@learning_rate * inputs[weight_index] * deltas[node_index])
         end
         Vector.elements(weights)
       end
@@ -61,7 +61,7 @@ module NeuralNFL
     def update_hidden_weights!(inputs, deltas)
       @layers[0] = @layers.first.each_with_index.map do |weights, node_index|
         weights = weights.each_with_index.map do |weight, weight_index|
-          weight + (@learning_rate * inputs[weight_index] * deltas[node_index])
+          weight - (@learning_rate * inputs[weight_index] * deltas[node_index])
         end
         Vector.elements(weights)
       end
