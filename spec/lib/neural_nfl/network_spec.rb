@@ -17,13 +17,9 @@ module NeuralNFL
                 Vector[0.4, 0.5, 0.6]
             ]
         ])
-        output = net.evaluate([0.1, 0.3, 0.5, 0.7]).map { |x| x.round(6) }
-        expect(output).to eq [0.0, 0.0]
+        output = net.evaluate([0.1, 0.3, 0.5, 0.7]).to_a.map { |x| x.round(6) }
+        expect(output).to eq [0.597617, 0.729354]
       end
-    end
-
-    describe '#train' do
-      pending 'may not need a test here, it just runs other methods'
     end
 
     describe '#get_output_deltas' do
@@ -43,27 +39,22 @@ module NeuralNFL
       end
     end
 
-    describe '#update_output_weights!' do
-      pending 'will not need this once code is DRYed'
-    end
-
-    describe '#update_hidden_weights!' do
+    describe '#get_updated_weights' do
       it 'updates the hidden weights' do
-        net.instance_variable_set(:@layers, [[
-          Vector[0.3, 0.4, 0.5, 0.6],
-          Vector[0.1, 0.2, 0.4, 0.8],
-          Vector[0.9, 0.6, 0.3, 0.0]
-        ]])
+        layer = [
+            Vector[0.3, 0.4, 0.5, 0.6],
+            Vector[0.1, 0.2, 0.4, 0.8],
+            Vector[0.9, 0.6, 0.3, 0.0]
+        ]
         inputs, deltas = [0.2, 0.3, 0.4, 0.5], [0.7, 0.6, 0.5]
-        net.update_hidden_weights!(inputs, deltas)
-        new_layer = net.instance_variable_get(:@layers).first.map(&:to_a)
+        new_layer = net.get_updated_weights(layer, inputs, deltas)
         expected_layer = [
             [0.265, 0.3475, 0.43, 0.5125],
             [0.07, 0.155, 0.34, 0.725],
             [0.875, 0.5625, 0.25, -0.0625]
         ]
         new_layer.zip(expected_layer).each do |actual, expected|
-          expect(actual.map { |x| x.round(6) }).to eq expected
+          expect(actual.to_a.map { |x| x.round(6) }).to eq expected
         end
       end
     end
