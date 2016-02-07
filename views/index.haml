@@ -3,17 +3,20 @@
   %head
     %title
       Neural NFL
+    %script{type: 'text/javascript', src:'https://code.jquery.com/jquery-2.2.0.min.js'}
     %script{type: 'text/javascript', src:'/neuralnfl.js'}
     %link{href: 'https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css', rel: 'stylesheet'}
     %link{href: '/styles.css', rel: 'stylesheet'}
+
 %body
   %div.container
     %h1
       Neural NFL
     %p
-      Use the form below to enter information about the current state of the game and the neural network will make a
+      Use the form below to enter information about the current state of the game and the classifier will make a
       prediction as to the next offensive play called.
-    %form{method: 'post', action: '/'}
+
+    %form#inputs
       .row
         .three.columns
           &nbsp;
@@ -55,7 +58,6 @@
           %input#down-4{type: 'radio', name: 'down', value: 4}
           %label.radio{for: 'down-4'}
             4th
-
 
       .row
         .three.columns
