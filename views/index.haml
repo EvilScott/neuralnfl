@@ -85,10 +85,14 @@
 
       .row
         .six.columns
-          &nbsp;
-        .three.columns
+          %p.error
+            Incomplete form
+        .two.columns.button-div
           %button.button-primary
             Predict
 
+    %h3
+      Results
     %div#results
-      %p= @results
+      %p
+        Nothing yet...

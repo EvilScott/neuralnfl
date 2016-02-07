@@ -10,3 +10,31 @@ label.radio {
 input[type="number"] {
     width: 140px;
 }
+
+.row .button-div {
+    text-align: right;
+}
+
+.row p.error {
+    opacity: 0;
+    color: firebrick;
+    margin-top: 45px;
+    text-align: right;
+}
+
+.result .bar {
+    display: inline-block;
+    border: 1px solid #33C3F0;
+    background-color: #33C3F0;
+    border-radius: 0.1em;
+    height: 20px;
+    white-space: nowrap;
+    margin: 0 20px 20px;
+    padding: 5px 0 10px;
+}
+
+.result .label {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 5px;
+}

@@ -28,7 +28,7 @@ class NeuralNFL < Sinatra::Base
     score_diff = params['off-score'].to_i - params['def-score'].to_i
     $classifier
         .distribution_for([time, down, to_first, to_goal, score_diff, '?'])
-        .map { |k, v| [k, v.round(2)] }
+        .map { |k, v| [k, (v * 100).round(1)] }
         .sort { |x, y| y.last <=> x.last }
         .to_json
   end
