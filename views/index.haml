@@ -1,0 +1,50 @@
+!!!
+%html
+  %head
+    %title
+      Neural NFL
+    %script{type: 'text/javascript', src:'/neuralnfl.js'}
+    %link{href: '/styles.css', rel: 'stylesheet'}
+%body
+  %h1
+    Neural NFL
+  %p
+    Use the form below to enter information about the current state of the game and the neural network will make a
+    prediction as to the next offensive play called.
+  %form{method: 'post', action: '/'}
+    %div
+      %label{for: 'Quarter'}
+        Quarter
+      %input{type: 'radio', name: 'quarter', value: 1}
+        1st
+      %input{type: 'radio', name: 'quarter', value: 2}
+        2nd
+      %input{type: 'radio', name: 'quarter', value: 3}
+        3rd
+      %input{type: 'radio', name: 'quarter', value: 4}
+        4th
+    %div
+      %label{for: 'time'}
+        Game time
+      %input{type: 'text', name: 'time'}
+    %div
+      %label{for: 'to-first'}
+        To first
+      %input{type: 'text', name: 'to-first'}
+    %div
+      %label{for: 'to-goal'}
+        To goal
+      %input{type: 'text', name: 'to-goal'}
+    %div
+      %label{for: 'off-score'}
+        Offensive score
+      %input{type: 'text', name: 'off-score'}
+    %div
+      %label{for: 'def-score'}
+        Defensive score
+      %input{type: 'text', name: 'def-score'}
+    %button
+      Predict
+
+  %div#results
+    = @results
