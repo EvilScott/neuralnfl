@@ -20,7 +20,7 @@
         .three.columns
           %label
             Quarter
-          %input#quarter-1{type: 'radio', name: 'quarter', value: 1, checked: true}
+          %input#quarter-1{type: 'radio', name: 'quarter', value: 1}
           %label.radio{for: 'quarter-1'}
             1st
           %input#quarter-2{type: 'radio', name: 'quarter', value: 2}
@@ -35,7 +35,7 @@
         .three.columns
           %label{for: 'time'}
             Game time
-          %input#time{type: 'number', min: 0, max: 15, step: 1, name: 'time', value: 15}
+          %input#time{type: 'number', min: 0, max: 15, step: 1, name: 'time'}
 
       .row
         .four.columns
@@ -43,7 +43,7 @@
         .three.columns
           %label
             Down
-          %input#down-1{type: 'radio', name: 'down', value: 1, checked: true}
+          %input#down-1{type: 'radio', name: 'down', value: 1}
           %label.radio{for: 'down-1'}
             1st
           %input#down-2{type: 'radio', name: 'down', value: 2}
@@ -63,11 +63,11 @@
         .three.columns
           %label{for: 'to-first'}
             To first
-          %input#to-first{type: 'number', min:0, max: 100, step: 1, name: 'to-first', value: 10}
+          %input#to-first{type: 'number', min:0, max: 100, step: 1, name: 'to-first'}
         .three.columns
           %label{for: 'to-goal'}
             To goal
-          %input#to-goal{type: 'number', min:0, max: 100, step: 1, name: 'to-goal', value: 50}
+          %input#to-goal{type: 'number', min:0, max: 100, step: 1, name: 'to-goal'}
 
       .row
         .three.columns
@@ -75,11 +75,11 @@
         .three.columns
           %label{for: 'off-score'}
             Offensive score
-          %input#off-score{type: 'number', min: 0, step: 1, name: 'off-score', value: 0}
+          %input#off-score{type: 'number', min: 0, step: 1, name: 'off-score'}
         .three.columns
           %label{for: 'def-score'}
             Defensive score
-          %input#def-score{type: 'number', min: 0, step: 1, name: 'def-score', value: 0}
+          %input#def-score{type: 'number', min: 0, step: 1, name: 'def-score'}
 
       .row
         .six.columns
