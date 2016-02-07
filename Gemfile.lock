@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    brainy (1.0.1)
+    brainy (1.0.2)
     haml (4.0.7)
       tilt
     rack (1.6.4)
@@ -17,6 +17,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  brainy (~> 1.0.1)
+  brainy (~> 1.0.2)
   haml (~> 4.0.7)
   sinatra (~> 1.4.7)
