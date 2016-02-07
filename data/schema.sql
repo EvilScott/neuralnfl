@@ -78,7 +78,8 @@ DELETE FROM data.plays
   OR description = '*** play under review ***'
   OR trim(description) = ''
   OR description ~ '^\(\d+:\d+\)$'
-  OR description ~ '^-?\d+$';
+  OR description ~ '^-?\d+$'
+  OR def_score - off_score > 100;
 
 -- remove unused rows
 DELETE FROM data.plays
