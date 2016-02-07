@@ -8,17 +8,17 @@ module NeuralNFL
       it 'evaluates the network for a set of inputs' do
         net.instance_variable_set(:@layers, [
             [
-                Vector[0.1, 0.2, 0.3, 0.4],
-                Vector[0.5, 0.6, 0.7, 0.8],
-                Vector[0.9, 0.1, 0.2, 0.3]
+                Vector[0.1, 0.2, 0.3, 0.4, 0.5],
+                Vector[0.5, 0.6, 0.7, 0.8, 0.9],
+                Vector[0.9, 0.1, 0.2, 0.3, 0.4]
             ],
             [
-                Vector[0.1, 0.2, 0.3],
-                Vector[0.4, 0.5, 0.6]
+                Vector[0.1, 0.2, 0.3, 0.4],
+                Vector[0.4, 0.5, 0.6, 0.5]
             ]
         ])
         output = net.evaluate([0.1, 0.3, 0.5, 0.7]).to_a.map { |x| x.round(6) }
-        expect(output).to eq [0.597617, 0.729354]
+        expect(output).to eq [0.702451, 0.839256]
       end
     end
 
