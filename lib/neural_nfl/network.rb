@@ -5,6 +5,7 @@ module NeuralNFL
     #TODO momentum
     #TODO dropout
     #TODO multiple hidden layers
+    #TODO customizable activate/activate_prime (with YAML support)
 
     def initialize(input_count, hidden_count, output_count, learning_rate)
       @layers = [
@@ -61,7 +62,10 @@ module NeuralNFL
     end
 
     def self.from_serialized(dump)
-      YAML.load(dump)
+      net = YAML.load(dump)
+      net.instance_variable_set(:@activate, lambda { |x| 1 / (1 + Math.exp(-1 * x)) })
+      net.instance_variable_set(:@activate_prime, lambda { |x| x * (1 - x) })
+      net
     end
   end
 end
